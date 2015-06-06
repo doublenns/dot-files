@@ -5,3 +5,13 @@ alias ltr="ls -ltr"
 
 # Overwrites default prompt, not including user signed in as
 PS1="\h:\W\$ "
+
+# If git-completion script is present, use it.
+test -f ~/.git-completion.bash && source $_
+# More concise way of stating the following:
+# if [ -f ~/.git-completion.bash ]; then
+#     . ~/.git-completion.bash
+# fi
+
+# Git completion script can be found at:`
+# https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
