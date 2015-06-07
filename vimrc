@@ -2,7 +2,7 @@
 syntax enable
 
 " Show line numbers
-" set number
+set number
 
 " Set tabs to have 4 spaces
 set tabstop=4
@@ -24,3 +24,11 @@ set showmatch
 
 " Enable all Python syntax highlighting features
 let python_highlight_all = 1
+
+" Alias ':Nonum' within vim to 'set nonumber' command
+" Useful when copying and pasting via OS highlighting across terms
+command Nonum set nonumber
+
+" Alias ':Num' within vim to 'set number' command
+" Used within workflow of undoing the above alias
+command Num set number
