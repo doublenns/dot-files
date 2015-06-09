@@ -1,7 +1,11 @@
+# Enables colors on the CLI
+#export CLICOLOR=1
+
 # List aliases
 alias la="ls -A"
 alias ll="ls -l"
 alias ltr="ls -ltr"
+alias ls="ls -F"
 
 # Overwrites default prompt, not including user signed in as
 PS1="\h:\W\$ "
