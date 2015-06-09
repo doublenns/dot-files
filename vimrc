@@ -32,3 +32,12 @@ command Nonum set nonumber
 " Alias ':Num' within vim to 'set number' command
 " Used within workflow of undoing the above alias
 command Num set number
+
+
+" Alias ':Noindent' within vim to 'set noautoindent' command
+" Useful when copying and pasting via OS highlighting across terms
+command Noindent set noautoindent
+
+" Alias ':Indent' within vim to 'set autoindent' command
+" Used within workflow of undoing the above alias
+command Indent set autoindent
