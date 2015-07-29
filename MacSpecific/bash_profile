@@ -6,6 +6,12 @@ alias la="ls -A"
 alias ll="ls -l"
 alias ltr="ls -ltr"
 alias ls="ls -F"
+alias safari="open -a Safari"
+alias chrome="open -a Google\ Chrome"
+alias sublime="open -a /Applications/Sublime\ Text.app/"
+
+# List functions
+function cdl { cd "$1" && ls; }
 
 # Overwrites default prompt, not including user signed in as
 PS1="\h:\W\$ "
