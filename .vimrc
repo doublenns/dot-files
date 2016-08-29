@@ -1,3 +1,6 @@
+" Enable different vim settings based on the filetype being edited
+filetype plugin on
+
 " Enable syntax highlighting
 syntax enable
 
