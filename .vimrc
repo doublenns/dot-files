@@ -28,6 +28,13 @@ set showmatch
 " Enable all Python syntax highlighting features
 let python_highlight_all = 1
 
+" Explicitly telling vim to determine what type of file being edited
+filetype on
+
+" Explicitly setting syntax highlighting on
+syntax on
+
+
 " Alias ':Nonum' within vim to 'set nonumber' command
 " Useful when copying and pasting via OS highlighting across terms
 command Nonum set nonumber
