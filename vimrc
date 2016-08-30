@@ -7,6 +7,9 @@ syntax enable
 " Show line numbers
 set number
 
+" Show line position
+set ruler
+
 " Set tabs to have 4 spaces
 set tabstop=4
 
