@@ -1,4 +1,4 @@
-" Basic Options --------------------------------------------------------------
+" Basic options --------------------------------------------------------------
 let python_highlight_all = 1    " Enable all Python syntax highlighting
 filetype on                     " Determine type of file being edited
 filetype plugin on              " Diff vim settings based on filetype
@@ -22,6 +22,12 @@ set number                      " Show line numbers
 set ruler                       " Show line position
 set cursorline                  " Show visual line under cursor's current line
 set showmatch                   " Show matching part of pair for {} [] and ()
+
+
+" Searching ------------------------------------------------------------------
+set ignorecase                  " Case-insensitive search
+set smartcase                   " Case-sensitive if query contains uppercase
+set incsearch                   " Show first search result as query is typed
 
 
 " Aliases --------------------------------------------------------------------
