@@ -1,56 +1,32 @@
-" Enable different vim settings based on the filetype being edited
-filetype plugin on
-
-" Enable syntax highlighting
-syntax enable
-
-" Show line numbers
-set number
-
-" Show line position
-set ruler
-
-" Set tabs to have 4 spaces
-set tabstop=4
-
-" Expand tabs into spaces
-set expandtab
-
-" Indent when moving to the next line when writing code
-set autoindent
-
-" Show visual line under cursor's current line
-set cursorline
-
-" When using the >> or << commands, shift lines by 4 spaces
-set shiftwidth=4
-
-" Show the matching part of the pair for {} [] and ()
-set showmatch
-
-" Enable all Python syntax highlighting features
-let python_highlight_all = 1
-
-" Explicitly telling vim to determine what type of file being edited
-filetype on
-
-" Explicitly setting syntax highlighting on
-syntax on
+" Basic Options --------------------------------------------------------------
+let python_highlight_all = 1    " Enable all Python syntax highlighting
+filetype on                     " Determine type of file being edited
+filetype plugin on              " Diff vim settings based on filetype
+if !exists("g:syntax_on")
+    syntax enable               " Enable syntax highlighting
+endif
 
 
-" Alias ':Nonum' within vim to 'set nonumber' command
-" Useful when copying and pasting via OS highlighting across terms
-command Nonum set nonumber
-
-" Alias ':Num' within vim to 'set number' command
-" Used within workflow of undoing the above alias
-command Num set number
+" Tabs and spaces ------------------------------------------------------------
+set tabstop=4                   " Set tabs to have 4 spaces
+set expandtab                   " Expand tabs into spaces
+set shiftwidth=4                " shift line 4 spaces w/ >> & << commands
 
 
-" Alias ':Noindent' within vim to 'set noautoindent' command
-" Useful when copying and pasting via OS highlighting across terms
-command Noindent set noautoindent
+" Indents and wrapping -------------------------------------------------------
+set autoindent                  " Indent when moving to the next line
 
-" Alias ':Indent' within vim to 'set autoindent' command
-" Used within workflow of undoing the above alias
-command Indent set autoindent
+
+" Visual ---------------------------------------------------------------------
+set number                      " Show line numbers
+set ruler                       " Show line position
+set cursorline                  " Show visual line under cursor's current line
+set showmatch                   " Show matching part of pair for {} [] and ()
+
+
+" Aliases --------------------------------------------------------------------
+command Nonum set nonumber          " Useful when copying and pasting via OS
+command Num set number              " Used to undo the above alias
+command Noindent set noautoindent   " Useful when copying and pasting via OS
+command Indent set autoindent       " Used to undo the above alias
+
