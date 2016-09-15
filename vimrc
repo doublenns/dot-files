@@ -25,7 +25,7 @@ set showmatch                   " Show matching part of pair for {} [] and ()
 
 
 " Searching ------------------------------------------------------------------
-set ignorecase                  " Case-insensitive search
+set ignorecase                  " Case-insensitive search (affects s/replace)
 set smartcase                   " Case-sensitive if query contains uppercase
 set incsearch                   " Show first search result as query is typed
 
