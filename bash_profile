@@ -6,9 +6,13 @@ alias la="ls -A"
 alias ll="ls -l"
 alias ltr="ls -ltr"
 alias ls="ls -F"
-alias safari="open -a Safari"
-alias chrome="open -a Google\ Chrome"
-alias sublime="open -a /Applications/Sublime\ Text.app/"
+
+# Mac Specific Aliases
+if [[ $(uname) == "Darwin" ]]; then
+    alias safari="open -a Safari"
+    alias chrome="open -a Google\ Chrome"
+    test -e /Applications/Sublime\ Text.app/ && alias sublime="open -a $_"
+fi
 
 # List functions
 function cdl { cd "$1" && ls; }
