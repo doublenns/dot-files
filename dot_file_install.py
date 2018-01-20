@@ -37,13 +37,13 @@ def main():
 
     for dotfile in dotfiles:
         # If dotfile is in calling script's path (cloned git repo)
-        dotfile_full_path = "{}/{}".format(script_dirname, dotfile
+        dotfile_full_path = "{}/{}".format(script_dirname, dotfile)
         if os.path.isfile( dotfile_full_path ):
-            shutil.copy(dotfile_full_path, "{}/.{}".format(users_homedir, dotfile)
+            shutil.copy(dotfile_full_path, "{}/.{}".format(users_homedir, dotfile))
         # If dotfile NOT in script's path (downloaded/executed single file)
         else:
-            dotfile_url = gitrepo_raw_url + dotfile 
-            urllib.urlretrieve(dotfile_url, "{}/.{}".format(users_homedir, dotfile)
+            dotfile_url = gitrepo_raw_url + dotfile
+            urllib.urlretrieve(dotfile_url, "{}/.{}".format(users_homedir, dotfile))
 
 
 if __name__ == "__main__":
