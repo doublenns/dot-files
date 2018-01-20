@@ -22,6 +22,7 @@ def main():
     users_homedir = os.path.expanduser("~")
     dotfiles = ("vimrc",
                     "bash_profile",
+                    "gitconfig",
                     "poop")
     gitrepo_raw_url = "https://raw.githubusercontent.com/doublenns/dot-files/master/"
 
