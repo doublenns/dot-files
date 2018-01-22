@@ -20,6 +20,25 @@ def check_dotfiles(users_homedir, dotfiles):
     return False
 
 
+def download_file(download_url, dest):
+    '''
+    Function to download file from URL
+    '''
+    # Needs better error handling here. Only works now based on order
+    # of error that occurs
+    try:
+        urllib.request.urlretrieve(download_url, dest)
+    except AttributeError:
+        urllib.urlretrieve(download_url, dest)
+    except urllib.error.HTTPError as e:
+        print("Unable to download {} from GitHub. Error code: {}".format(
+            download_url, e.code))
+    except urllib.errorURLError as e:
+        print("Unable to download {} from GitHub. Reasone: {}".format(
+            download_url, e.reason))
+
+
+
 def deploy_dotfiles(users_homedir, dotfiles):
     '''
     Function deploys the dotfiles into the current user's home dir..
@@ -39,18 +58,8 @@ def deploy_dotfiles(users_homedir, dotfiles):
         # If dotfile NOT in script's path (downloaded/executed single file)
         else:
             dotfile_url = gitrepo_raw_url + dotfile
-            print(dotfile_url)
-            try:
-                urllib.urlretrieve(dotfile_url, "{}/.{}".format(users_homedir, dotfile))
-            except AttributeError:
-                try:
-                    urllib.request.urlretrieve(dotfile_url, "{}/.{}".format(users_homedir, dotfile))
-                except urllib.error.HTTPError as e:
-                    print("Unable to download {} from GitHub. Error code: {}".format(
-                        dotfile, e.code))
-                except urllib.errorURLError as e:
-                    print("Unable to download {} from GitHub. Reasone: {}".format(
-                        dotfile, e.reason))
+            dest = "{}/.{}".format(users_homedir, dotfile)
+            download_file(dotfile_url, dest)
 
 
 def main():
