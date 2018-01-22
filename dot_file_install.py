@@ -33,10 +33,10 @@ def download_file(download_url, dest):
             response = urllib2.urlopen(download_url)
             with open(dest, "w") as dotfile:
                 dotfile.write(response.read())
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             print("Unable to download {} from GitHub. Error code: {}".format(
                 download_url, e.code))
-        except urllib2.URLError,e:
+        except urllib2.URLError as e:
             print("Unable to download {} from GitHub. Reasone: {}".format(
                 download_url, e.reason))
     # Python3 but fails because of HTTP/URL issues
@@ -74,6 +74,8 @@ def deploy_dotfiles(users_homedir, dotfiles):
 
 def main():
     users_homedir = os.path.expanduser("~")
+
+    # Manually insert which dotfiles want to ve managed here
     dotfiles = ("vimrc",
                     "bash_profile",
                     "gitconfig",
