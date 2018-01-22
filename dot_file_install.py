@@ -4,7 +4,7 @@ import os
 import sys
 import shutil
 if sys.version_info[0] == 2:
-    import urllib
+    import urllib2
 elif sys.version_info[0] == 3:
     import urllib.request
     import urllib.error #import URLError, HTTPError
@@ -28,12 +28,22 @@ def download_file(download_url, dest):
     # of error that occurs
     try:
         urllib.request.urlretrieve(download_url, dest)
-    except AttributeError:
-        urllib.urlretrieve(download_url, dest)
+    except NameError: # Fails because Python2 instead of 3
+        try:
+            response = urllib2.urlopen(download_url)
+            with open(dest, "w") as dotfile:
+                dotfile.write(response.read())
+        except urllib2.HTTPError, e:
+            print("Unable to download {} from GitHub. Error code: {}".format(
+                download_url, e.code))
+        except urllib2.URLError,e:
+            print("Unable to download {} from GitHub. Reasone: {}".format(
+                download_url, e.reason))
+    # Python3 but fails because of HTTP/URL issues
     except urllib.error.HTTPError as e:
         print("Unable to download {} from GitHub. Error code: {}".format(
             download_url, e.code))
-    except urllib.errorURLError as e:
+    except urllib.error.URLError as e:
         print("Unable to download {} from GitHub. Reasone: {}".format(
             download_url, e.reason))
 
