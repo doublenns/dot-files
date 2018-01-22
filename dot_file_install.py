@@ -64,7 +64,7 @@ def deploy_dotfiles(users_homedir, dotfiles):
         dotfile_full_path = "{}/{}".format(script_dirname, dotfile)
         if os.path.isfile(dotfile_full_path):
             shutil.copy(dotfile_full_path, "{}/.{}".format(users_homedir, dotfile))
-            print("Copied " + dotfile_full_path)
+            # print("Copied " + dotfile_full_path)
         # If dotfile NOT in script's path (downloaded/executed single file)
         else:
             dotfile_url = gitrepo_raw_url + dotfile
@@ -79,10 +79,11 @@ def main():
     users_homedir = os.path.expanduser("~")
 
     # Manually insert which dotfiles want to ve managed here
-    dotfiles = ("vimrc",
-                "bash_profile",
-                "gitconfig",
-                "poop")
+    dotfiles = ("vimrc"
+                , "bash_profile"
+                , "gitconfig"
+                # , "dotfile_that_doesnt_exist"
+                )
 
     if check_dotfiles(users_homedir, dotfiles):
         global input
