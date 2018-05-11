@@ -132,7 +132,7 @@ def main():
             input = raw_input
         choice = input("This script will overwrite existing dotfiles. Proceed? [y/N]")
         if choice.lower() != "y":
-            print("You already have .{} located in your home directory".format(dot_conflict)
+            print("You already have .{} located in your home directory".format(dot_conflict))
             sys.exit(1)
 
     deploy_dotfiles(users_homedir, dotfiles, dotdirs)
