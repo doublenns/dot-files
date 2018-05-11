@@ -2,6 +2,8 @@
 import os
 import sys
 import shutil
+import distutils
+from distutils import dir_util
 if sys.version_info[0] == 2:
     import urllib2
 elif sys.version_info[0] == 3:
