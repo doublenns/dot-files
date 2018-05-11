@@ -119,7 +119,7 @@ def main():
                 # , "dotfile_that_doesnt_exist"
                 )
     dotdirs = ("vim"
-                # , "dotdir_that_doesnt_exist"
+                , #"dotdir_that_doesnt_exist"
                 )
 
     dotlocations = dotfiles + dotdirs
