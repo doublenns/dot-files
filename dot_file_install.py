@@ -33,7 +33,7 @@ def check_dotlocations(users_homedir, dotlocations):
     '''
     for dotlocation in dotlocations:
         if os.path.exists("{}/.{}".format(users_homedir, dotlocation)):
-            return True
+            return dotlocation
     return False
 
 
@@ -131,6 +131,7 @@ def main():
             input = raw_input
         choice = input("This script will overwrite existing dotfiles. Proceed? [y/N]")
         if choice.lower() != "y":
+            print("You already have .{} located in your home directory".format(check_dotlocations()))
             sys.exit(1)
 
     deploy_dotfiles(users_homedir, dotfiles, dotdirs)
