@@ -12,12 +12,25 @@ else:
     sys.exit(1)
 
 
-def check_dotfiles(users_homedir, dotfiles):
+def run_shell_cmd(cmd, *shell):
+    # Might want to use a "try" or call.check in case Command fails
+    if "shell" in shell.lower():
+        process = subprocess.Popen(cmd,
+                stdout=subprocess.PIPE, shell=True)
+    else:
+        process = subprocess.Popen(cmd.split(),
+                stdout=subprocess.PIPE)
+    output = process.communicate()[0]
+    rc = process.returncode
+    return output, rc
+
+
+def check_dotlocations(users_homedir, dotlocations):
     '''
     Function to check if dotfiles already exist
     '''
-    for dotfile in dotfiles:
-        if os.path.isfile("{}/.{}".format(users_homedir, dotfile)):
+    for dotlocation in dotlocations:
+        if os.path.exists("{}/.{}".format(users_homedir, dotlocation)):
             return True
     return False
 
@@ -50,7 +63,14 @@ def download_file(download_url, dest):
             download_url, e.reason))
 
 
-def deploy_dotfiles(users_homedir, dotfiles):
+def download_dir(download_url, dest):
+    '''
+    Function to download project subdirectory from Github
+    '''
+    run_shell_cmd("svn export " + download_url + " " + dest)
+
+
+def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
     '''
     Function deploys the dotfiles into the current user's home dir..
     1st checks to see if can copy the files from cloned repo, in the running
@@ -58,6 +78,7 @@ def deploy_dotfiles(users_homedir, dotfiles):
     '''
     script_dirname = os.path.dirname(os.path.abspath(__file__))
     gitrepo_raw_url = "https://raw.githubusercontent.com/doublenns/dot-files/master/"
+    gitrepo_svn_url= "https://raw.githubusercontent.com/doublenns/dot-files/trunk/"
 
     for dotfile in dotfiles:
         # If dotfile is in calling script's path (cloned git repo)
@@ -71,6 +92,18 @@ def deploy_dotfiles(users_homedir, dotfiles):
             dest = "{}/.{}".format(users_homedir, dotfile)
             download_file(dotfile_url, dest)
 
+    for dotdir in dotdirs:
+        # If dotdir is in calling script's path (cloned git repo)
+        dotdir_full_path = "{}/{}".format(script_dirname, dotdir)
+        if os.path.isdir(dotdir_full_path):
+            distutils.dir_util.copy_tree(dotdir_full_path, "{}/.{}".format(users_homedir, dotdir))
+            # print("Copied " + dotdir_full_path)
+        # If dotdir NOT in script's path (downloaded/executed single file)
+        else:
+            dotdir_url = gitrepo_svn_url + dotfile
+            dest = "{}/.{}".format(users_homedir, dotdir)
+            download_dir(dotdir_url, dest)
+
 
 def main():
     '''
@@ -78,14 +111,17 @@ def main():
     '''
     users_homedir = os.path.expanduser("~")
 
-    # Manually insert which dotfiles want to ve managed here
-    dotfiles = ("vimrc"
-                , "bash_profile"
+    # Manually insert which dotfiles want to be managed here
+    dotfiles = ("bash_profile"
                 , "gitconfig"
                 # , "dotfile_that_doesnt_exist"
                 )
+    dotdirs = ("vim"
+                # , "dotdir_that_doesnt_exist"
+                )
 
-    if check_dotfiles(users_homedir, dotfiles):
+    dotlocations = dotfiles + dotdirs
+    if check_dotlocations(users_homedir, dotlocations):
         global input
         # try: input = raw_input
         # except NameError: pass
@@ -95,7 +131,7 @@ def main():
         if choice.lower() != "y":
             sys.exit(1)
 
-    deploy_dotfiles(users_homedir, dotfiles)
+    deploy_dotfiles(users_homedir, dotfiles, dotdirs)
 
 
 if __name__ == "__main__":
