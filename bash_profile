@@ -21,7 +21,7 @@ function cdl { cd "$1" && ls; }
 PS1="\h:\W\$ "
 
 # If bash-completion script is present from homebrew installation, use it.
-test -f /usr/local/etc/bash_completion ] && source $_
+test -f /usr/local/etc/bash_completion && source $_
 
 # If git-completion script is present from github pull, use it.
 test -f ~/.git-completion.bash && source $_
