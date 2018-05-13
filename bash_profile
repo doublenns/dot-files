@@ -20,12 +20,15 @@ function cdl { cd "$1" && ls; }
 # Overwrites default prompt, not including user signed in as
 PS1="\h:\W\$ "
 
-# If git-completion script is present, use it.
+# If bash-completion script is present from homebrew installation, use it.
+test -f /usr/local/etc/bash_completion ] && source $_
+
+# If git-completion script is present from github pull, use it.
 test -f ~/.git-completion.bash && source $_
 # More concise way of stating the following:
-# if [ -f ~/.git-completion.bash ]; then
+# "if [ -f ~/.git-completion.bash ]; then
 #     . ~/.git-completion.bash
-# fi
-
+# fi`
 # Git completion script can be found at:`
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+# Note: Git completion functionality also installed as part of bash-completion
