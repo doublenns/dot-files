@@ -1,3 +1,6 @@
 [user]
 	name = DoubleNNs
 	email = nnamdianyanwu@gmail.com
+
+[alias]
+    unstage = reset HEAD --
