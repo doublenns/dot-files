@@ -14,7 +14,7 @@ else:
     sys.exit(1)
 
 
-def run_shell_cmd(cmd, *shell):
+def run_shell_cmd(cmd, shell=""):
     # Might want to use a "try" or call.check in case Command fails
     if "shell" in shell.lower():
         process = subprocess.Popen(cmd,
