@@ -25,10 +25,14 @@ def check_dotlocations(users_homedir, dotlocations):
     '''
     Function to check if dotfiles already exist
     '''
+    existing_files = []
     for dotlocation in dotlocations:
-        if os.path.exists("{}/.{}".format(users_homedir, dotlocation)):
-            return dotlocation
-    return False
+        if os.path.exists(f"{users_homedir}/.{dotlocation}"):
+            existing_files.append(dotlocation)
+    if existing_files:
+        return existing_files
+    else:
+        return False
 
 
 def download_file(download_url, dest):
@@ -118,6 +122,8 @@ def main():
 
     dotlocations = dotfiles + dotdirs
     dot_conflict = check_dotlocations(users_homedir, dotlocations)
+    print("The dot conflicts are!!")
+    print(dot_conflict)
     if dot_conflict:
         global input
         # try: input = raw_input
