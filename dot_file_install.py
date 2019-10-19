@@ -64,9 +64,9 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
 
     for dotfile in dotfiles:
         # If dotfile is in calling script's path (cloned git repo)
-        dotfile_full_path = "{}/{}".format(script_dirname, dotfile)
+        dotfile_full_path = f"{script_dirname}/{dotfile}"
         if os.path.isfile(dotfile_full_path):
-            shutil.copy(dotfile_full_path, "{}/.{}".format(users_homedir, dotfile))
+            shutil.copy(dotfile_full_path, f"{users_homedir}/.{dotfile}")
         # If dotfile NOT in script's path (downloaded/executed single file)
         else:
             dotfile_url = gitrepo_raw_url + dotfile
@@ -75,14 +75,14 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
 
     for dotdir in dotdirs:
         # If dotdir is in calling script's path (cloned git repo)
-        dotdir_full_path = "{}/{}".format(script_dirname, dotdir)
+        dotdir_full_path = f"{script_dirname}/{dotdir}"
         if os.path.isdir(dotdir_full_path):
-            distutils.dir_util.copy_tree(dotdir_full_path, "{}/.{}".format(users_homedir, dotdir))
+            distutils.dir_util.copy_tree(dotdir_full_path, f"{users_homedir}/.{dotdir}")
             # print("Copied " + dotdir_full_path)
         # If dotdir NOT in script's path (downloaded/executed single file)
         else:
             dotdir_url = gitrepo_svn_url + dotdir
-            dest = "{}/.{}".format(users_homedir, dotdir)
+            dest = f"{users_homedir}/.{dotdir}"
             download_dir(dotdir_url, dest)
 
 
@@ -109,10 +109,10 @@ def main():
         # except NameError: pass
         if hasattr(__builtins__, 'raw_input'):
             input = raw_input
-        choice = input("This script will overwrite existing dotfiles. Proceed? [y/N]")
+        choice = input("This script will overwrite existing dotfiles. Proceed? [y/N] ")
         if choice.lower() != "y":
-            print("You already have the following files located in your home directory:")
-            print(", ".join(dot_conflict))
+            dot_conflict_str = ", ".join(dot_conflict)
+            print(f"You already have the following files located in your home directory: {dot_conflict_str}")
             print()
             sys.exit(1)
 
