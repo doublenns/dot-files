@@ -28,7 +28,7 @@ def check_dotlocations(users_homedir, dotlocations):
     existing_files = []
     for dotlocation in dotlocations:
         if os.path.exists(f"{users_homedir}/.{dotlocation}"):
-            existing_files.append(dotlocation)
+            existing_files.append("." + dotlocation)
     if existing_files:
         return existing_files
     else:
@@ -49,8 +49,7 @@ def download_file(download_url, dest):
             with open(dest, "w") as dotfile:
                 dotfile.write(response.read())
         except urllib2.HTTPError as e:
-            print("Unable to download {} from GitHub. Error code: {}".format(
-                download_url, e.code))
+            print("Unable to download {download_url} from GitHub. Error code: {e.code}".)
         except urllib2.URLError as e:
             print("Unable to download {} from GitHub. Reasone: {}".format(
                 download_url, e.reason))
@@ -132,7 +131,7 @@ def main():
             input = raw_input
         choice = input("This script will overwrite existing dotfiles. Proceed? [y/N]")
         if choice.lower() != "y":
-            print("You already have .{} located in your home directory".format(dot_conflict))
+            print(f"You already have {dot_conflict} located in your home directory")
             sys.exit(1)
 
     deploy_dotfiles(users_homedir, dotfiles, dotdirs)
