@@ -1,17 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import sys
 import shutil
 import distutils
+import urllib.request
+import urllib.error
 from distutils import dir_util
-if sys.version_info[0] == 2:
-    import urllib2
-elif sys.version_info[0] == 3:
-    import urllib.request
-    import urllib.error
-else:
-    print("Python version isn'2 2 or 3. Don't know how to proceed. Exiting")
-    sys.exit(1)
 
 
 def run_shell_cmd(cmd, shell=""):
