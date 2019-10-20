@@ -4,9 +4,7 @@ import sys
 import shutil
 import distutils
 import requests
-import subprocess
 import svn.remote
-from distutils import dir_util
 
 
 def check_dotlocations(users_homedir, dotlocations):
@@ -19,8 +17,8 @@ def check_dotlocations(users_homedir, dotlocations):
             existing_files.append("." + dotlocation)
     if existing_files:
         return existing_files
-    else:
-        return False
+    return False
+
 
 def download_file(download_url, dest):
     '''
@@ -31,12 +29,14 @@ def download_file(download_url, dest):
         with open(dest, "wb") as f:
             f.write(response.content)
 
+
 def download_dir(download_url, dest):
     '''
     Function to download project subdirectory from Github
     '''
     remote = svn.remote.RemoteClient(download_url)
     remote.export(dest)
+
 
 def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
     '''
@@ -46,7 +46,7 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
     '''
     script_dirname = os.path.dirname(os.path.abspath(__file__))
     gitrepo_raw_url = "https://raw.githubusercontent.com/doublenns/dot-files/master/"
-    gitrepo_svn_url= "https://github.com/doublenns/dot-files/trunk/"
+    gitrepo_svn_url = "https://github.com/doublenns/dot-files/trunk/"
 
     for dotfile in dotfiles:
         # If dotfile is in calling script's path (cloned git repo)
@@ -71,6 +71,7 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
             dest_dir = f"{users_homedir}/.{dotdir}"
             download_dir(dotdir_url, dest_dir)
 
+
 def main():
     '''
     Script's main function
@@ -78,13 +79,8 @@ def main():
     users_homedir = os.path.expanduser("~")
 
     # Manually insert which dotfiles want to be managed here
-    dotfiles = ("bash_profile"
-                , "gitconfig"
-                # , "dotfile_that_doesnt_exist"
-                )
-    dotdirs = ("vim"
-                , #"dotdir_that_doesnt_exist"
-                )
+    dotfiles = ("bash_profile", "gitconfig")
+    dotdirs = ("vim", )
 
     dotlocations = dotfiles + dotdirs
     dot_conflict = check_dotlocations(users_homedir, dotlocations)
