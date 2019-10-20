@@ -92,16 +92,10 @@ def main():
     dotlocations = dotfiles + dotdirs
     dot_conflict = check_dotlocations(users_homedir, dotlocations)
     if dot_conflict:
-        global input
-        # try: input = raw_input
-        # except NameError: pass
-        if hasattr(__builtins__, 'raw_input'):
-            input = raw_input
+        dot_conflict_str = ", ".join(dot_conflict)
+        print(f"You already have these files in your home directory: {dot_conflict_str}")
         choice = input("This script will overwrite existing dotfiles. Proceed? [y/N] ")
         if choice.lower() != "y":
-            dot_conflict_str = ", ".join(dot_conflict)
-            print(f"You already have the following files located in your home directory: {dot_conflict_str}")
-            print()
             sys.exit(1)
 
     deploy_dotfiles(users_homedir, dotfiles, dotdirs)
