@@ -22,7 +22,6 @@ def check_dotlocations(users_homedir, dotlocations):
     else:
         return False
 
-
 def download_file(download_url, dest):
     '''
     Function to download file from URL
@@ -31,7 +30,6 @@ def download_file(download_url, dest):
     if response:
         with open(dest, "wb") as f:
             f.write(response.content)
-
 
 def download_dir(download_url, dest):
     '''
@@ -72,7 +70,6 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
             dotdir_url = gitrepo_svn_url + dotdir
             dest_dir = f"{users_homedir}/.{dotdir}"
             download_dir(dotdir_url, dest_dir)
-
 
 def main():
     '''
