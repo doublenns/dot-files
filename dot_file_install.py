@@ -70,8 +70,8 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
         # If dotfile NOT in script's path (downloaded/executed single file)
         else:
             dotfile_url = gitrepo_raw_url + dotfile
-            dest = f"{users_homedir}/.{dotfile}"
-            download_file(dotfile_url, dest)
+            dest_file = f"{users_homedir}/.{dotfile}"
+            download_file(dotfile_url, dest_file)
 
     for dotdir in dotdirs:
         # If dotdir is in calling script's path (cloned git repo)
@@ -82,8 +82,8 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
         # If dotdir NOT in script's path (downloaded/executed single file)
         else:
             dotdir_url = gitrepo_svn_url + dotdir
-            dest = f"{users_homedir}/.{dotdir}"
-            download_dir(dotdir_url, dest)
+            dest_dir = f"{users_homedir}/.{dotdir}"
+            download_dir(dotdir_url, dest_dir)
 
 
 def main():
