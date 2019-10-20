@@ -5,20 +5,8 @@ import shutil
 import distutils
 import requests
 import subprocess
+import svn.remote
 from distutils import dir_util
-
-
-def run_shell_cmd(cmd, shell=""):
-    # Might want to use a "try" or call.check in case Command fails
-    if "shell" in shell.lower():
-        process = subprocess.Popen(cmd,
-                stdout=subprocess.PIPE, shell=True)
-    else:
-        process = subprocess.Popen(cmd.split(),
-                stdout=subprocess.PIPE)
-    output = process.communicate()[0]
-    rc = process.returncode
-    return output, rc
 
 
 def check_dotlocations(users_homedir, dotlocations):
@@ -49,8 +37,8 @@ def download_dir(download_url, dest):
     '''
     Function to download project subdirectory from Github
     '''
-    run_shell_cmd("svn export " + download_url + " " + dest)
-
+    remote = svn.remote.RemoteClient(download_url)
+    remote.export(dest)
 
 def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
     '''
