@@ -14,6 +14,9 @@ if [[ $(uname) == "Darwin" ]]; then
     test -e /Applications/Sublime\ Text.app/ && alias sublime="open -a $_"
 fi
 
+# AWS Aliases
+alias aws-who='aws sts get-caller-identity; aws s3api list-buckets'
+
 # List functions
 function cdl { cd "$1" && ls; }
 
