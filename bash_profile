@@ -23,6 +23,11 @@ function cdl { cd "$1" && ls; }
 # Overwrites default prompt, not including user signed in as
 PS1="\h:\W\$ "
 
+# Sort 2 files then diff them
+function sorted_diffs() {
+        diff "${@:3}" <(sort "$1") <(sort "$2")
+}
+
 # If bash-completion script is present from homebrew installation, use it.
 test -f /usr/local/etc/bash_completion && source $_
 
