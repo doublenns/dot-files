@@ -2,8 +2,6 @@
 import os
 import sys
 import shutil
-import distutils
-from distutils import dir_util
 import requests
 import svn.remote
 
@@ -64,7 +62,7 @@ def deploy_dotfiles(users_homedir, dotfiles, dotdirs):
         # If dotdir is in calling script's path (cloned git repo)
         dotdir_full_path = f"{script_dirname}/{dotdir}"
         if os.path.isdir(dotdir_full_path):
-            distutils.dir_util.copy_tree(dotdir_full_path, f"{users_homedir}/.{dotdir}")
+            shutil.copytree(dotdir_full_path, f"{users_homedir}/.{dotdir}")
             # print("Copied " + dotdir_full_path)
         # If dotdir NOT in script's path (downloaded/executed single file)
         else:
